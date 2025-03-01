@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/styles.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Registration System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        img {
+            max-width: 300px;
+            height: auto;
+            border: 2px solid black;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Car Registration System</h1>
+    
+    <form action="/generate" method="post" enctype="multipart/form-data">
+        <label>Make:</label> <input type="text" name="make" required><br>
+        <label>Model:</label> <input type="text" name="model" required><br>
+        <label>Year:</label> <input type="text" name="year" required><br>
+        <label>Color:</label> <input type="text" name="color" required><br>
+        <label>VIN:</label> <input type="text" name="vin" required><br>
+        <label>Registration No:</label> <input type="text" name="reg_no" required><br>
+        <label>Engine No:</label> <input type="text" name="engine_no" required><br>
+        <label>Owner:</label> <input type="text" name="owner" required><br>
+        <label>Fuel Type:</label> <input type="text" name="fuel_type" required><br>
+        <label>Transmission:</label> <input type="text" name="transmission" required><br>
+        <label>Chassis No:</label> <input type="text" name="chassis_no" required><br>
+        <label>Car Image:</label> <input type="file" name="car_image" accept="image/*" required><br>
+        <label>Code Type:</label>
+        <select name="code_type">
+            <option value="qrcode">QR Code</option>
+            <option value="barcode">Barcode</option>
+        </select>
+        <br>
+        <button type="submit">Generate Code</button>
+    </form>
+
+    {% if car %}
+        <h2>Car Details</h2>
+        <div class="container">
+            <div>
+                <p><strong>Make:</strong> {{ car.make }}</p>
+                <p><strong>Model:</strong> {{ car.model }}</p>
+                <p><strong>Year:</strong> {{ car.year }}</p>
+                <p><strong>Color:</strong> {{ car.color }}</p>
+                <p><strong>VIN:</strong> {{ car.vin }}</p>
+                <p><strong>Registration No:</strong> {{ car.reg_no }}</p>
+                <p><strong>Engine No:</strong> {{ car.engine_no }}</p>
+                <p><strong>Owner:</strong> {{ car.owner }}</p>
+                <p><strong>Fuel Type:</strong> {{ car.fuel_type }}</p>
+                <p><strong>Transmission:</strong> {{ car.transmission }}</p>
+                <p><strong>Chassis No:</strong> {{ car.chassis_no }}</p>
+            </div>
+            {% if car.car_image %}
+                <img src="{{ car.car_image }}" alt="Car Image">
+            {% endif %}
+        </div>
+
+        {% if img_path %}
+            <h2>Generated Code</h2>
+            <img src="{{ img_path }}" alt="Generated Code">
+            <br>
+            <a href="{{ img_path }}" download>Download Code</a>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
